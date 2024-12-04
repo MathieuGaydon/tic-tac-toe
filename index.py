@@ -1,130 +1,130 @@
-#Création des variables du jeu et les mettre à zéro
-joueur_actuel =""
-grille=["-","-","-",
+#Creating and setting game variables to zero
+current_player =""
+grid=["-","-","-",
         "-","-","-",
         "-","-","-"]
-fin_jeu=  False
-gagnant=''
+end_game=  False
+winner=''
 
-#création de la fonction jouer permettant l'éxécution du programme du jeu
+#Creation of the game function to run the game program
 
-def jouer():
-    choix_joueur()
-    affichage_grille( )
-    while fin_jeu ==False :
-        tour (joueur_actuel)
-        verifier_fin_jeu()
-        joueur_suivant()
-    resultat()
+def game():
+    select_player()
+    display_grid( )
+    while end_game ==False :
+        round (current_player)
+        check_end_game()
+        next_player()
+    result()
 
-#Création de la fonction choix joueur décidant qui est le joueur X et qui est le joueur O
+#Creation of the player select function deciding who is player X and who is player O
 
-def choix_joueur():
-    global joueur_actuel
-    joueur_actuel =input ("veuillez choissir une croix(X) ou un rond (O) :")
+def select_player():
+    global current_player
+    current_player =input ("please choose a cross (X) or a circle (O) :")
     while True:
-        joueur_actuel = joueur_actuel.upper()
-        if joueur_actuel =="X" :
-            print("vous avez choisi X.le joueur 2 aura O")
+        current_player = current_player.upper()
+        if current_player =="X" :
+            print("you have chosen X.player 2 will have O")
             break
-        elif joueur_actuel =="O" :
-            print("vous avez choisi X.le joueur 2 aura O")
+        elif current_player =="O" :
+            print("you have chosen O.player 2 will have X")
             break
         else :
-            joueur_actuel=input("veuillez choissir une croix(X) ou un rond (O) :")
+            current_player=input("please choose a cross (X) or a circle (O) :")
 
 # Création de la fonction affichage grille permettant l'affichage de notre grille ainsi que ses coordonnées
 
-def affichage_grille() :
+def display_grid() :
     print("\n")
     print("-----------------")
-    print("|",grille[0],"|","|",grille[1],"|","|",grille[2],"|           |1|2|3|")
+    print("|",grid[0],"|","|",grid[1],"|","|",grid[2],"|           |1|2|3|")
     print("-----------------")
-    print("|",grille[3],"|","|",grille[4],"|","|",grille[5],"|           |4|5|6|")
+    print("|",grid[3],"|","|",grid[4],"|","|",grid[5],"|           |4|5|6|")
     print("-----------------")
-    print("|",grille[6],"|","|",grille[7],"|","|",grille[8],"|           |7|8|9|")
+    print("|",grid[6],"|","|",grid[7],"|","|",grid[8],"|           |7|8|9|")
     print("-----------------")
     print("\n")
 
-# création de la fonction tour permettant de changer de joueur 
-# et vérifier qu'il rentre une coordonnée défini entre 0 et 9
+# Creation of the round function for changing players 
+# And check that it enters a coordinate defined between 0 and 9
 
-def tour(joueur) :
-    print("C'est le tour du joueur :" ,joueur)
-    pos =input("veuillez sélectionner un espace vide sur la grille entre 0 et 9 : ")
+def round(player) :
+    print("It's the player's round:" ,player)
+    pos =input("please select an empty space on the grid between 0 and 9 : ")
 
     valide =False
     while valide == False :
         
         while pos not in ["1","2","3","4","5","6","7","8","9"] :
-            pos =input("veuillez sélectionner un espace vide sur la grille entre 0 et 8 :")
+            pos =input("please select an empty space on the grid between 0 and 9 :")
         pos = int(pos) -1
         
 
-        if grille[pos] =="-" :
+        if grid[pos] =="-" :
              valide=True
         else :
-            print("vous ne pouvez pas accéder à cette position  ")
+            print("you cannot access this position")
     
-    grille[pos] = joueur
-    affichage_grille()
+    grid[pos] = player
+    display_grid()
 
-# Création de la fonction vérifier fin de jeu pour savoir qu'elle est l'issu de la partie
+# Creation of an end-of-game check function to find out the outcome of the game
 
-def verifier_fin_jeu():
-    verifier_victoire()
-    verifier_match_nul()
+def check_end_game():
+    check_victory()
+    check_draw()
 
 #Création de la fonction vérifier victoire permettant de vérifier 
-# si un joueur à gagner la partie en ligne ou en colonnes ou en diagonales
+# whether a player has won the game in rows, columns or diagonals
 
-def verifier_victoire() :
-    global fin_jeu
-    global gagnant
+def check_victory() :
+    global end_game
+    global winner
 
-    if grille[0] == grille[1] == grille [2] and grille [1] !="-":
-        fin_jeu=True
-        gagnant=grille[1]
-    if grille[3] == grille[4] == grille [5] and grille [3] !="-":
-        fin_jeu=True
-        gagnant=grille[4]
-    if grille[6] == grille[7] == grille [8] and grille [7] !="-":
-        fin_jeu=True
-        gagnant=grille[7]
-    if grille[0] == grille[3] == grille [6] and grille [3] !="-":
-        fin_jeu=True
-        gagnant=grille[6]
-    if grille[1] == grille[4] == grille [7] and grille [4] !="-":
-        fin_jeu=True
-        gagnant=grille[7]
-    if grille[2] == grille[5] == grille [8] and grille [5] !="-":
-        fin_jeu=True
-        gagnant=grille[5]
-    if grille[0] == grille[4] == grille [8] and grille [4] !="-":
-        fin_jeu=True
-        gagnant=grille[4]
-    if grille[2] == grille[4] == grille [6] and grille [2] !="-":
-        fin_jeu=True
-        gagnant=grille[2]
+    if grid[0] == grid[1] == grid [2] and grid [1] !="-":
+        end_game=True
+        winner=grid[1]
+    if grid[3] == grid[4] == grid [5] and grid [3] !="-":
+        end_game=True
+        winner=grid[4]
+    if grid[6] == grid[7] == grid [8] and grid [7] !="-":
+        end_game=True
+        winner=grid[7]
+    if grid[0] == grid[3] == grid [6] and grid [3] !="-":
+        end_game=True
+        winner=grid[6]
+    if grid[1] == grid[4] == grid [7] and grid [4] !="-":
+        end_game=True
+        winner=grid[7]
+    if grid[2] == grid[5] == grid [8] and grid [5] !="-":
+        end_game=True
+        winner=grid[5]
+    if grid[0] == grid[4] == grid [8] and grid [4] !="-":
+        end_game=True
+        winner=grid[4]
+    if grid[2] == grid[4] == grid [6] and grid [2] !="-":
+        end_game=True
+        winner=grid[2]
 
-#Création de la variables vérifier match nul qui vérifie si aucun des deux joueur
-#n'a gagner et envoie "match nul"
+#Creation of the check draw variable, which checks whether either player
+#won and sent "that's a draw"
 
-def verifier_match_nul() :
-    global fin_jeu
-    if "-" not in grille :
-        fin_jeu = True
-def joueur_suivant() :
-    global joueur_actuel
-    if joueur_actuel == "X" :
-        joueur_actuel ="O"
+def check_draw() :
+    global end_game
+    if "-" not in grid :
+        end_game = True
+def next_player() :
+    global current_player
+    if current_player == "X" :
+        current_player ="O"
     else :
-        joueur_actuel ="X"
-def resultat() :
-    if gagnant =="X" or gagnant == "O" :
-        print("le joueur :",gagnant,"a gagné")
+        current_player ="X"
+def result() :
+    if winner =="X" or winner == "O" :
+        print("The player :",winner,"has won")
     else :
-        print("match nul")
+        print("That's a draw")
 
-# rappel de la fonction jouer qui permet de lancé la partie
-jouer()
+#reminder of the game function used to launch the game
+game()
