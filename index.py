@@ -51,13 +51,13 @@ def display_grid() :
 
 def round(player) :
     print("It's the player's round:" ,player)
-    pos =input("please select an empty space on the grid between 0 and 9 : ")
+    pos =input("please select an empty space on the grid between 1 and 9 : ")
 
     valide =False
     while valide == False :
         
         while pos not in ["1","2","3","4","5","6","7","8","9"] :
-            pos =input("please select an empty space on the grid between 0 and 9 :")
+            pos =input("please select an empty space on the grid between 1 and 9 :")
         pos = int(pos) -1
         
 
